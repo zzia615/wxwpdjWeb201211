@@ -11,7 +11,6 @@ namespace wxwpdjWeb
 {
     public partial class UserEdit : System.Web.UI.Page
     {
-        Utils.SqlFactoryUtil Sql = new Utils.SqlFactoryUtil();
         protected void Page_Load(object sender, EventArgs e)
         {
             (this.Master as EditSite).PageTitle = "修改用户";
@@ -20,11 +19,7 @@ namespace wxwpdjWeb
                 string code = Request.QueryString["code"];
                 if (!string.IsNullOrEmpty(code))
                 {
-                    List<IDbDataParameter> parameters = new List<IDbDataParameter>();
-                    string sql = "select * from denglu where code=@code";
-                    parameters.Add(new SqlParameter("@code", code));
-
-                    var table = Sql.QueryDataSet(sql,parameters.ToArray()).Tables[0];
+                    var table = new BLL.UserBLL().GetUserList(code,"","");
                     if (table!=null&& table.Rows.Count>0)
                     {
                         tbCode.Text = table.Rows[0]["code"].ToString();
@@ -58,14 +53,7 @@ namespace wxwpdjWeb
             //查询登录信息
             if (Page.IsValid)
             {
-                string sql = "update denglu set password=@pwd,name=@name,sex=@sex,birthday=@birthday where code=@code";
-                parameters.Add(new SqlParameter("@pwd", pwd));
-                parameters.Add(new SqlParameter("@name", name));
-                parameters.Add(new SqlParameter("@sex", sex));
-                parameters.Add(new SqlParameter("@birthday", birthday));
-                parameters.Add(new SqlParameter("@code", code));
-
-                int ret = Sql.ExecuteSql(sql,parameters.ToArray());
+                int ret = new BLL.UserBLL().EditUser(code,pwd,name,sex,birthday);
                 if (ret>0)
                 {
                     Response.Write("<script>alert('修改用户信息成功');window.location.href='UserList.aspx'</script>");

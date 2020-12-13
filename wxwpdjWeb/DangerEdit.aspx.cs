@@ -11,7 +11,6 @@ namespace wxwpdjWeb
 {
     public partial class DangerEdit : System.Web.UI.Page
     {
-        Utils.SqlFactoryUtil Sql = new Utils.SqlFactoryUtil();
         protected void Page_Load(object sender, EventArgs e)
         {
             (this.Master as EditSite).PageTitle = "修改危险物品";
@@ -20,12 +19,8 @@ namespace wxwpdjWeb
                 string id = Request.QueryString["id"];
                 if (!string.IsNullOrEmpty(id))
                 {
-                    List<IDbDataParameter> parameters = new List<IDbDataParameter>();
-  
-                    string sql = "select * from dangerInfo where id=@id";
-                    parameters.Add(new SqlParameter("@id", id.AsInt()));
 
-                    DataTable table = Sql.QueryDataSet(sql, parameters.ToArray()).Tables[0];
+                    DataTable table = new BLL.DangeBLL().GetDangerList(id.AsInt());
                     if (table!=null&& table.Rows.Count>0)
                     {
                         tbId.Text = table.Rows[0]["id"].AsString();
@@ -64,19 +59,7 @@ namespace wxwpdjWeb
 
             if (Page.IsValid)
             {
-                List<IDbDataParameter> parameter = new List<IDbDataParameter>();
-
-                string sql = "update dangerInfo set name=@name,xdz_name=@xdz_name,xdz_sex=@xdz_sex,xdz_phone=@xdz_phone,xdz_sfzh=@xdz_sfzh,catagory=@catagory,remark=@remark where id=@id";
-                parameter.Add(new SqlParameter("@name", name));
-                parameter.Add(new SqlParameter("@xdz_name", xdz_name));
-                parameter.Add(new SqlParameter("@xdz_sex", xdz_sex));
-                parameter.Add(new SqlParameter("@xdz_phone", xdz_phone));
-                parameter.Add(new SqlParameter("@xdz_sfzh", xdz_sfzh));
-                parameter.Add(new SqlParameter("@catagory", catagory));
-                parameter.Add(new SqlParameter("@remark", remark));
-                parameter.Add(new SqlParameter("@id", id));
-
-                int ret = Sql.ExecuteSql(sql, parameter.ToArray()) ;
+                int ret = new BLL.DangeBLL().EditDanger(id, name, xdz_name, xdz_sex, xdz_phone, xdz_sfzh, catagory, remark);
                 if (ret>0)
                 {
                     Response.Write("<script>alert('修改危险物品信息成功');window.location.href='DangerList.aspx'</script>");

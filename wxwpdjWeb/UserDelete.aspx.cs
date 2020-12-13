@@ -11,7 +11,6 @@ namespace wxwpdjWeb
 {
     public partial class UserDelete : System.Web.UI.Page
     {
-        Utils.SqlFactoryUtil Sql = new Utils.SqlFactoryUtil();
         protected void Page_Load(object sender, EventArgs e)
         {
             (this.Master as EditSite).PageTitle = "删除用户";
@@ -20,11 +19,7 @@ namespace wxwpdjWeb
                 string code = Request.QueryString["code"];
                 if (!string.IsNullOrEmpty(code))
                 {
-                    List<IDbDataParameter> parameters = new List<IDbDataParameter>();
-                    string sql = "select * from denglu where code=@code";
-                    parameters.Add(new SqlParameter("@code", code));
-
-                    var table = Sql.QueryDataSet(sql, parameters.ToArray()).Tables[0];
+                    var table = new BLL.UserBLL().GetUserList(code, "", "");
                     if (table != null && table.Rows.Count > 0)
                     {
                         tbCode.Text = table.Rows[0]["code"].ToString();
@@ -56,12 +51,7 @@ namespace wxwpdjWeb
 
             if (Page.IsValid)
             {
-                List<IDbDataParameter> parameters = new List<IDbDataParameter>();
-
-                string sql = "delete from denglu where code=@code";
-                parameters.Add(new SqlParameter("@code", code));
-
-                int ret = Sql.ExecuteSql(sql,parameters.ToArray());
+                int ret = new BLL.UserBLL().DeleteUser(code);
                 if (ret>0)
                 {
                     Response.Write("<script>alert('删除用户信息成功');window.location.href='UserList.aspx'</script>");

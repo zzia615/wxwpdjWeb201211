@@ -87,6 +87,12 @@
     <Compile Include="Attributes\RequiredAttribute.cs" />
     <Compile Include="Attributes\StringLengthAttribute.cs" />
     <Compile Include="Attributes\TableNameAttribute.cs" />
+    <Compile Include="BLL\DangeBLL.cs" />
+    <Compile Include="BLL\LoginBLL.cs" />
+    <Compile Include="BLL\UserBLL.cs" />
+    <Compile Include="DAL\DangeDAL.cs" />
+    <Compile Include="DAL\LoginDAL.cs" />
+    <Compile Include="DAL\UserDAL.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -186,7 +192,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50449</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

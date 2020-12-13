@@ -11,9 +11,10 @@ namespace wxwpdjWeb
 {
     public partial class Default : System.Web.UI.Page
     {
-        Utils.SqlFactoryUtil Sql = new Utils.SqlFactoryUtil();
         protected void Page_Load(object sender, EventArgs e)
         {
+            //清会话
+            Session.Clear();
             (this.Master as EditSite).PageTitle = "用户登录";
         }
 
@@ -24,14 +25,12 @@ namespace wxwpdjWeb
 
             if (Page.IsValid)
             {
-                List<IDbDataParameter> parameters = new List<IDbDataParameter>();
-                string sql = "select * from denglu where code=@code and password=@pwd";
-                parameters.Add(new SqlParameter("@code", code));
-                parameters.Add(new SqlParameter("@pwd", pwd));
-
-                DataTable table = Sql.QueryDataSet(sql, parameters.ToArray()).Tables[0];
+                DataTable table = new BLL.LoginBLL().GetUser(code,pwd);
                 if (table != null && table.Rows.Count > 0)
                 {
+                    //缓存登录账号
+                    Session["登录账号"] = table.Rows[0]["code"].AsString();
+
                     Response.Write("<script>alert('登录成功');window.location.href='Home.aspx'</script>");
                 }
                 else

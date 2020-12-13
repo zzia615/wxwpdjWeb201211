@@ -11,7 +11,6 @@ namespace wxwpdjWeb
 {
     public partial class DangerAdd : System.Web.UI.Page
     {
-        Utils.SqlFactoryUtil Sql = new Utils.SqlFactoryUtil();
         protected void Page_Load(object sender, EventArgs e)
         {
             (this.Master as EditSite).PageTitle = "新增危险物品";
@@ -30,17 +29,8 @@ namespace wxwpdjWeb
 
             if (Page.IsValid)
             {
-                List<IDbDataParameter> parameter = new List<IDbDataParameter>();
-                string sql = "insert into dangerInfo(name,xdz_name,xdz_sex,xdz_phone,xdz_sfzh,catagory,remark) values(@name,@xdz_name,@xdz_sex,@xdz_phone,@xdz_sfzh,@catagory,@remark)";
-                parameter.Add(new SqlParameter("@name", name));
-                parameter.Add(new SqlParameter("@xdz_name", xdz_name));
-                parameter.Add(new SqlParameter("@xdz_sex", xdz_sex));
-                parameter.Add(new SqlParameter("@xdz_phone", xdz_phone));
-                parameter.Add(new SqlParameter("@xdz_sfzh", xdz_sfzh));
-                parameter.Add(new SqlParameter("@catagory", catagory));
-                parameter.Add(new SqlParameter("@remark", remark));
 
-                int ret = Sql.ExecuteSql(sql, parameter.ToArray());
+                int ret = new BLL.DangeBLL().AddDanger(name, xdz_name, xdz_sex, xdz_phone, xdz_sfzh, catagory, remark);
                 if (ret>0)
                 {
                     Response.Write("<script>alert('登记危险物品成功');window.location.href='DangerList.aspx'</script>");

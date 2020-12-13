@@ -11,7 +11,6 @@ namespace wxwpdjWeb
 {
     public partial class UserAdd : System.Web.UI.Page
     {
-        Utils.SqlFactoryUtil Sql = new Utils.SqlFactoryUtil();
         protected void Page_Load(object sender, EventArgs e)
         {
             (this.Master as EditSite).PageTitle = "新增用户";
@@ -27,15 +26,7 @@ namespace wxwpdjWeb
 
             if (Page.IsValid)
             {
-                List<IDbDataParameter> parameters = new List<IDbDataParameter>();
-                string sql = "insert into denglu(code,password,name,sex,birthday) values(@code,@pwd,@name,@sex,@birthday)";
-                parameters.Add(new SqlParameter("@code", code));
-                parameters.Add(new SqlParameter("@pwd", pwd));
-                parameters.Add(new SqlParameter("@name", name));
-                parameters.Add(new SqlParameter("@sex", sex));
-                parameters.Add(new SqlParameter("@birthday", birthday));
-
-                int ret = Sql.ExecuteSql(sql, parameters.ToArray());
+                int ret = new BLL.UserBLL().AddUser(code, pwd, name, sex, birthday);
                 if (ret > 0)
                 {
                     Response.Write("<script>alert('新增用户信息成功');window.location.href='UserList.aspx'</script>");

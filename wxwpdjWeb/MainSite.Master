@@ -1,0 +1,82 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MainSite.master.cs" Inherits="wxwpdjWeb.MainSite" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <style>
+        body {
+            padding:0px;
+            margin:0px;
+            background-image:url(img/bg-main.jpeg);
+            background-position:center;
+            background-size:100%;
+        }
+        .container{
+            position:absolute;
+            top:100px;
+            left:10px;
+            right:10px;
+            bottom:10px;
+        }
+        .left{
+            position:absolute;
+            background:#fff;
+            width:160px;
+            float:left;
+            padding-left:10px;
+            left:0px;
+            bottom:0px;
+            top:0px;
+        }
+
+        .left a{
+            display: block;
+            width: 150px;
+            height: 30px;
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #688620;
+            margin-top:5px;
+            text-align:center;
+            padding-top:10px;
+        }
+
+        .left a:hover{
+            background-color: #5b7223;
+        }
+
+        .right{
+            position:absolute;
+            left:180px;
+            right:0px;
+            bottom:0px;
+            top:0px;
+        }
+    </style>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div style="background:#688620;height:90px;">
+        <h1 style="text-align:center;color:#fff;padding:0;margin:0;padding-top:20px;"><%=PageTitle %> - 渤海危险物品登记管理系统</h1>
+    </div>
+    <div class="container">
+        <div class="left">
+            <div><a href="/Home.aspx">主页面</a></div>
+            <div><a href="/UserList.aspx">用户信息维护</a></div>
+            <div><a href="/DangerList.aspx">危险物品信息维护</a></div>
+            <div><a href="/Default.aspx">退出系统</a></div>
+        </div>
+        <div class="right">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </div>
+
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+    </asp:ContentPlaceHolder>
+</body>
+</html>

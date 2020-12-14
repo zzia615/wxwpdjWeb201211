@@ -32,6 +32,7 @@
                 <td>
                     <asp:Button ID="Button1" runat="server" Text="登录" OnClick="Button1_Click"/>
                     <button type="reset" style="margin-left:20px">重置</button>
+                    <a href="Register.aspx">注册</a>
                 </td>
                 <td></td>
             </tr>

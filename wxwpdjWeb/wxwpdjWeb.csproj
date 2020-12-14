@@ -74,6 +74,7 @@
     <Content Include="DangerDelete.aspx" />
     <Content Include="DangerEdit.aspx" />
     <Content Include="DangerList.aspx" />
+    <Content Include="Register.aspx" />
     <Content Include="UserAdd.aspx" />
     <Content Include="UserDelete.aspx" />
     <Content Include="UserEdit.aspx" />
@@ -150,6 +151,13 @@
     </Compile>
     <Compile Include="DangerList.aspx.designer.cs">
       <DependentUpon>DangerList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
     <Compile Include="UserAdd.aspx.cs">
       <DependentUpon>UserAdd.aspx</DependentUpon>
